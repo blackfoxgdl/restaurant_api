@@ -14,4 +14,8 @@ class Product extends Model
         'price',
         'amount'
     ];
+
+    public function products() {
+        return $this->hasMany(Order_Product::class);
+    }
 }

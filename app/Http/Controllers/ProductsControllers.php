@@ -43,7 +43,7 @@ class ProductsControllers extends Controller
                 'amount' => 'required'
             ]);
 
-            if ($validate->fails()) {
+            if (!$validate->fails()) {
                 $product = $request->all();
                 $newProd = Product::create($product);
 

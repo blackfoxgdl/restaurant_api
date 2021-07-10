@@ -43,7 +43,6 @@ class OrdersControllers extends Controller
             if (!$validate->fails()) {
                 //Check products exists 
                 $totalRecords = $this->existsProducts($request->input('products'));
-
                 if (!$totalRecords) {
                     return response()->json([
                         'error' => 'Products not availables!',
@@ -56,16 +55,12 @@ class OrdersControllers extends Controller
                 $products = $request->input('products');
 
                 $order = Order::create($order_name);
-                $total = OrdersProductsControllers::createOrderProduct($order->id, $products);
-                $order->total = $total;
-                $order->save();
+                $response = OrdersProductsControllers::createOrderProduct($order->id, $request->products);
                 
 
                 return response()->json([
                     'message' => 'The order has been received',
-                    'order' => $order->id,
-                    'total' => $total,
-                    'products' => $products
+                    'order' => $response
                 ]);
             }
 
@@ -94,9 +89,9 @@ class OrdersControllers extends Controller
      */
     private function existsProducts($products) {
         $total = \DB::table('products')
-                    ->whereIn('name', $products)
+                    ->whereIn('name', array_unique($products))
                     ->count();
 
-        return $total === count($products);
+        return $total === count(array_unique($products));
     }
 }

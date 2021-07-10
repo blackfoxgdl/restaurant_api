@@ -2,17 +2,16 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Http\Request;
 
 class ReportTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        $this->assertTrue(true);
+    public function testProductOrders() {
+        $response = $this->json('GET', '/api/reports/2021-01-01/2021-12-31');
+
+        $response->assertStatus(200);
     }
 }

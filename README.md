@@ -7,8 +7,8 @@ USERS:
     - SHOW: HOST/api/users/id
     - CREATE: HOST/api/users
         {
-            "name": "Alonso",
-            "email": "alonso@gmail.com"
+            "name": "Nombre USER",
+            "email": "example@example.com"
         }
 
 PRODUCTS:
